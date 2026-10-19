@@ -1,5 +1,10 @@
 # Changelog
 
+**2026-10-19 — DeepSeek Harness support**
+- `--agent deepseek` publishes `AGENTS.md` + `.dsh/skills/asset-gen` for DeepSeek Harness. DSH's workspace-instruction loader reads `AGENTS.md` (or `CLAUDE.md`) from the project root, and its filesystem skill provider scans `.dsh/skills` before `.agents/skills`, so the published skill is discovered without harness configuration.
+- The asset skill is referenced as "the `asset-gen` skill" in a DSH publish: DSH loads skills through the `skill` tool (a user can also type `/asset-gen`), whereas Claude uses `/asset-gen` and Codex uses `$asset-gen`.
+- A DSH skill is handed its base directory and resolves relative paths against it, so a DSH publish references the skill's own tools and docs from `.`; Claude and Codex keep repo-root paths.
+
 **2026-10-16 — Local assets by default, audio, GDScript and three.js**
 - Assets come from [godogen_assets](https://github.com/htdt/godogen_assets) by default: free local generators for images (Qwen-Image), textured 3D (TRELLIS.2), humanoid rigging (Make-It-Animatable), Kimodo moves (`gen-moves`, `add-moves`), lip-sync, sound effects (Stable Audio 3) and voice lines (Qwen3-TTS). `asset-gen/SKILL.md` is a TL;DR linking to its docs; its README carries the setup, and `publish.sh` writes the checkout recorded in `.godogen_assets` into the published skill.
 - Blender is a recommended dependency: `asset-gen` scripts it headless for 3D better built than generated — exact or articulated models, edits to generated GLBs, mechanical and non-humanoid animation — and falls back to godogen_assets' own Blender through `asset-blender` when `blender` isn't on `PATH`.

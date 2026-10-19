@@ -1,6 +1,6 @@
 # Godogen
 
-Autonomous game development for Godot (C# or GDScript), Bevy, Babylon.js, and three.js with Claude Code and Codex.
+Autonomous game development for Godot (C# or GDScript), Bevy, Babylon.js, and three.js with Claude Code, Codex, and DeepSeek Harness.
 
 [![Watch the video](https://img.youtube.com/vi/eUz19GROIpY/maxresdefault.jpg)](https://youtu.be/eUz19GROIpY)
 
@@ -19,7 +19,7 @@ A published repo is intentionally thin: a runtime manifest, a one-page engine gu
 - `engines/godot.md`, `engines/godot-gdscript.md`, `engines/bevy.md`, `engines/babylon.md`, `engines/threejs.md` — per-engine guides
 - [publish.sh](publish.sh) — renders the runtime layout for the chosen engine and host agent
 
-Engine and host agent (Claude vs Codex) are publish-time render choices, not separate source trees.
+Engine and host agent (Claude Code, Codex, or DeepSeek Harness) are publish-time render choices, not separate source trees.
 
 ## What the agent does
 
@@ -76,7 +76,7 @@ Every engine gets the same loop — build, generate assets, run, prove — so pi
   - `TRIPO_API_KEY` — [Tripo](https://developers.tripo3d.ai/) for 3D generation (used by the `tripo` CLI: `npm install -g tripo-cli`, Node.js 20+)
 - System packages from [setup.md](setup.md): `vulkan-tools`, `xvfb`, `ffmpeg`, `imagemagick`, plus platform-specific extras
 - Tested on Ubuntu, Debian, and macOS
-- Claude Code or Codex
+- Claude Code, Codex, or DeepSeek Harness
 
 ### Publish a game repo
 
@@ -88,6 +88,7 @@ Pick the engine and host agent:
 ./publish.sh --engine bevy           --agent claude --out ~/my-game
 ./publish.sh --engine babylon        --agent codex  --out ~/my-game   # AGENTS.md + .agents/skills/
 ./publish.sh --engine threejs        --agent codex  --out ~/my-game
+./publish.sh --engine babylon        --agent deepseek --out ~/my-game # AGENTS.md + .dsh/skills/
 ```
 
 Pass `--force` to wipe existing contents at the target before re-publishing.
