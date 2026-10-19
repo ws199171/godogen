@@ -1,5 +1,9 @@
 # Changelog
 
+**2026-10-19 — WorkBuddy support**
+- `--agent workbuddy` publishes `AGENTS.md` + `.workbuddy/skills/asset-gen` for Tencent WorkBuddy. WorkBuddy loads the project `AGENTS.md` and scans `.workbuddy/skills` (alongside `.codebuddy`, `.claude`, `.agents`, and `.openclaw`), so the skill is discovered without project configuration.
+- WorkBuddy exposes skills through its `Skill` tool and hands the model the skill's base directory; a WorkBuddy publish therefore refers to "the `asset-gen` skill" and addresses the skill's own tools and docs from `.`, like the DeepSeek Harness layout. Claude and Codex keep their command references and repo-root paths.
+
 **2026-10-19 — DeepSeek Harness support**
 - `--agent deepseek` publishes `AGENTS.md` + `.dsh/skills/asset-gen` for DeepSeek Harness. DSH's workspace-instruction loader reads `AGENTS.md` (or `CLAUDE.md`) from the project root, and its filesystem skill provider scans `.dsh/skills` before `.agents/skills`, so the published skill is discovered without harness configuration.
 - The asset skill is referenced as "the `asset-gen` skill" in a DSH publish: DSH loads skills through the `skill` tool (a user can also type `/asset-gen`), whereas Claude uses `/asset-gen` and Codex uses `$asset-gen`.

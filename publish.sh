@@ -2,8 +2,8 @@
 # Publish Godogen runtime files into a target game repo.
 #
 # Usage:
-#   ./publish.sh --engine <engine> --agent claude|codex|deepseek --out <dir> [--force]
-#   ./publish.sh --engine <engine> --agent claude|codex|deepseek <dir> [--force]
+#   ./publish.sh --engine <engine> --agent claude|codex|deepseek|workbuddy --out <dir> [--force]
+#   ./publish.sh --engine <engine> --agent claude|codex|deepseek|workbuddy <dir> [--force]
 #
 # Engines: godot (C#), godot-gdscript, bevy, babylon, threejs — README.md#choosing-an-engine
 #
@@ -81,15 +81,22 @@ case "$AGENT" in
         ASSET_SKILL_COMMAND="asset-gen"
         ASSET_SKILL_REFERENCE='the `asset-gen` skill'
         ;;
-    *) echo "error: --agent must be claude, codex, or deepseek" >&2; usage; exit 1 ;;
+    workbuddy)
+        MANIFEST="AGENTS.md"
+        SKILLS_DIR_REL=".workbuddy/skills"
+        AGENT_NAME="WorkBuddy"
+        ASSET_SKILL_COMMAND="asset-gen"
+        ASSET_SKILL_REFERENCE='the `asset-gen` skill'
+        ;;
+    *) echo "error: --agent must be claude, codex, deepseek, or workbuddy" >&2; usage; exit 1 ;;
 esac
 
 ASSET_GEN_SKILL_DIR="$SKILLS_DIR_REL/asset-gen"
-# DSH hands the model the skill's base directory and resolves relative paths
-# against it, so a DSH skill names its own files from ".".
-if [ "$AGENT" = "deepseek" ]; then
-    ASSET_GEN_SKILL_DIR="."
-fi
+# DSH and WorkBuddy hand the model the skill's base directory and resolve
+# relative paths against it, so their skill names its own files from ".".
+case "$AGENT" in
+    deepseek|workbuddy) ASSET_GEN_SKILL_DIR="." ;;
+esac
 
 ENGINE_GUIDE_FILE="$ENGINE.md"
 
@@ -161,9 +168,10 @@ echo "Created $ENGINE_GUIDE_FILE"
 if [ ! -f "$TARGET/.gitignore" ]; then
     {
         case "$AGENT" in
-            claude)   printf '.claude\nCLAUDE.md\n' ;;
-            codex)    printf '.agents\nAGENTS.md\n.codex\n' ;;
-            deepseek) printf '.dsh\nAGENTS.md\n' ;;
+            claude)    printf '.claude\nCLAUDE.md\n' ;;
+            codex)     printf '.agents\nAGENTS.md\n.codex\n' ;;
+            deepseek)  printf '.dsh\nAGENTS.md\n' ;;
+            workbuddy) printf '.workbuddy\nAGENTS.md\n' ;;
         esac
         printf '%s\n' "$ENGINE_GUIDE_FILE"
         printf '/tripo-out\n'

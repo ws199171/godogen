@@ -3,6 +3,7 @@
 .codex
 .codex/
 .dsh/
+.workbuddy/
 .playwright-cli/
 .playwright
 **/__pycache__

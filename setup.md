@@ -86,6 +86,7 @@ In a published game repo, the same asset-generation requirements file lives at:
 - `.claude/skills/asset-gen/tools/requirements.txt` for Claude Code
 - `.agents/skills/asset-gen/tools/requirements.txt` for Codex
 - `.dsh/skills/asset-gen/tools/requirements.txt` for DeepSeek Harness
+- `.workbuddy/skills/asset-gen/tools/requirements.txt` for WorkBuddy
 
 `asset_gen.py` needs `google-genai` 2.25+ for Gemini images, TTS, voice design and Lyria.
 
@@ -163,7 +164,7 @@ godogen_assets ships its own Blender (`deps/blender`), which the agent falls bac
 
 Assets are generated locally by default with [godogen_assets](https://github.com/htdt/godogen_assets): images, textured 3D models, rigged humanoids with generated moves and lip-sync, sound effects and voice lines, free on the machine's NVIDIA GPU (reference: RTX 3060 12 GB, 24 GB RAM). Without it, every asset goes to the paid APIs below.
 
-GPUs and drivers differ too much for one script, so its [README](https://github.com/htdt/godogen_assets#setup) (Setup) is a manual for a Claude Code, Codex, or DeepSeek Harness agent to follow on the machine at hand. Once its commands are on `PATH` (`./setup.sh link`), record the checkout in this repo — `publish.sh` writes the path into every published asset-gen skill:
+GPUs and drivers differ too much for one script, so its [README](https://github.com/htdt/godogen_assets#setup) (Setup) is a manual for a Claude Code, Codex, DeepSeek Harness, or WorkBuddy agent to follow on the machine at hand. Once its commands are on `PATH` (`./setup.sh link`), record the checkout in this repo — `publish.sh` writes the path into every published asset-gen skill:
 
 ```bash
 echo "$PWD" > /path/to/godogen/.godogen_assets   # run in the godogen_assets checkout; git-ignored

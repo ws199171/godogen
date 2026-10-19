@@ -2,7 +2,7 @@
 
 Godogen turns a natural-language game brief into a playable Godot, Bevy, Babylon.js, or three.js project. The agent builds the game, generates assets, runs the engine, and proves the result from the running game.
 
-It is not a game engine, a code generator, or an asset marketplace. It is a source repo that publishes a thin runtime — a manifest, an engine guide, and an asset skill — into a fresh game repo that Claude Code, Codex, or DeepSeek Harness then builds in.
+It is not a game engine, a code generator, or an asset marketplace. It is a source repo that publishes a thin runtime — a manifest, an engine guide, and an asset skill — into a fresh game repo that Claude Code, Codex, DeepSeek Harness, or WorkBuddy then builds in.
 
 ## Source Model
 
@@ -15,12 +15,13 @@ The repo is organized by engine, with the cross-engine pieces shared:
 Engine and host agent are selected at render time:
 
 ```bash
-./publish.sh --engine godot   --agent claude   --out ~/game
-./publish.sh --engine babylon --agent codex    --out ~/game
-./publish.sh --engine babylon --agent deepseek --out ~/game
+./publish.sh --engine godot   --agent claude    --out ~/game
+./publish.sh --engine babylon --agent codex     --out ~/game
+./publish.sh --engine babylon --agent deepseek  --out ~/game
+./publish.sh --engine babylon --agent workbuddy --out ~/game
 ```
 
-Publishing writes `CLAUDE.md` + `.claude/skills/` for Claude Code, `AGENTS.md` + `.agents/skills/` for Codex, or `AGENTS.md` + `.dsh/skills/` for DeepSeek Harness, plus the `<engine>.md` guide. Codex `agents/openai.yaml` is generated from the `asset-gen` `SKILL.md` frontmatter.
+Publishing writes `CLAUDE.md` + `.claude/skills/` for Claude Code, `AGENTS.md` + `.agents/skills/` for Codex, `AGENTS.md` + `.dsh/skills/` for DeepSeek Harness, or `AGENTS.md` + `.workbuddy/skills/` for WorkBuddy, plus the `<engine>.md` guide. Codex `agents/openai.yaml` is generated from the `asset-gen` `SKILL.md` frontmatter.
 
 ## How a run works
 
